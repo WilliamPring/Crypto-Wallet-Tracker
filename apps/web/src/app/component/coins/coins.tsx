@@ -4,6 +4,8 @@ import { toUpper } from 'lodash';
 import Button from 'react-bootstrap/Button';
 /* eslint-disable-next-line */
 import { CoinsProps } from '@crypto-wallet-tracker/props';
+import { Link } from 'react-router-dom';
+import { cryptoStrategy, CoinType } from '@crypto-wallet-tracker/common';
 
 export const Coin: FC<CoinsProps> = ({
   imageUrl,
@@ -12,7 +14,6 @@ export const Coin: FC<CoinsProps> = ({
   ticketName,
   userCoinWalletSummary,
 }) => {
-  console.log('the url', url);
   return (
     <tr>
       <td colSpan={2} style={{ display: 'flex', alignItems: 'center' }}>
@@ -27,6 +28,9 @@ export const Coin: FC<CoinsProps> = ({
       <td>{userCoinWalletSummary.totalAmount}</td>
       <td>{userCoinWalletSummary.addressCount}</td>
       <td style={{ marginLeft: 'auto' }}>
+        <Link to={`wallet/${userCoinWalletSummary.id}`}>
+          <Button>View </Button>
+        </Link>
         <Button>Edit</Button>
         <Button>Delete</Button>
       </td>

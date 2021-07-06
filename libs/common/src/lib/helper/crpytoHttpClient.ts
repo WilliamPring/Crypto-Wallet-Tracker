@@ -1,7 +1,6 @@
 
 import {HttpClient} from '../http-client'
 
-
 class EthClient extends HttpClient {
     constructor() {
         super({baseURL: ''})

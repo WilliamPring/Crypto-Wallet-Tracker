@@ -1,7 +1,18 @@
 import {BtcClient} from '../../helper/CrpytoHttpClient'
+import { CoinType }from '../../type/coinType'
+
+
+// interface walletData {
+//     address: string;
+//     walletType:
+//     //walletType:
+// }
+
+
+
 
 interface CryptoStrategy {
-    walletInfo(cryptoPublicAddress: string): unknown;
+    walletInfo(cryptoPublicAddress: string): Promise<unknown>;
 }
 
 class BitcoinStrategy implements CryptoStrategy {
@@ -10,27 +21,33 @@ class BitcoinStrategy implements CryptoStrategy {
         this.clinet = new BtcClient()
     }
 
-    public walletInfo(data: string): unknown {
-        return Promise.all([
-            this.clinet.getAddress(data),
-            this.clinet.getTransaction(data)
-        ]).then(data => {
-            const [generalInfo, transaction] = data;
-            return {
-                generalInfo,
-                transaction
-            }
-        })
-    }
-}
+    public walletInfo(data: string): Promise<unknown> {
+        console.log(data);
+        try {
+            return Promise.all([
+                this.clinet.getAddress(data),
+                this.clinet.getTransaction(data)
+            ]).then(data => {
+                const [generalInfo, transaction] = data;
+                console.log(data);
 
-class EthStrategy implements CryptoStrategy {
-    public walletInfo(data: string): string[] {
-        return data.sort();
+                return {
+                    generalInfo,
+                    transaction
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
     }
 }
+// class EthStrategy implements CryptoStrategy {
+//     public walletInfo(data: string): Promise<unknown> {
+//         return null;
+//     }
+// }
 
 export const cryptoStrategy = {
-    BTC: new BitcoinStrategy(),
-    ETH: new EthStrategy()
+    [CoinType.BTC]: new BitcoinStrategy(),
+    // [CoinType.BTC]: new EthStrategy()
 }
