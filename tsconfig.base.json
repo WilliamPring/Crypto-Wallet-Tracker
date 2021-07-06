@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@crypto-wallet-tracker/common": ["libs/common/src/index.ts"],
+      "@crypto-wallet-tracker/props": ["libs/props/src/index.ts"],
+      "@crypto-wallet-tracker/ui": ["libs/ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

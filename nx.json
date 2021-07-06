@@ -19,6 +19,15 @@
     }
   },
   "projects": {
+    "common": {
+      "tags": []
+    },
+    "props": {
+      "tags": []
+    },
+    "ui": {
+      "tags": []
+    },
     "web": {
       "tags": []
     },
