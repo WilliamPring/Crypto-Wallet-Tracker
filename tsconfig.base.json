@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@crypto-wallet-tracker/common": ["libs/common/src/index.ts"],
+      "@crypto-wallet-tracker/context": ["libs/context/src/index.ts"],
+      "@crypto-wallet-tracker/dtos": ["libs/dtos/src/index.ts"],
+      "@crypto-wallet-tracker/models": ["libs/models/src/index.ts"],
       "@crypto-wallet-tracker/props": ["libs/props/src/index.ts"],
       "@crypto-wallet-tracker/ui": ["libs/ui/src/index.ts"]
     }

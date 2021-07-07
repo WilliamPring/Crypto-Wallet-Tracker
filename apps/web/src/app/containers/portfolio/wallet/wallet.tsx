@@ -1,5 +1,5 @@
 import './wallet.module.scss';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { cryptoStrategy, CoinType } from '@crypto-wallet-tracker/common';
 
@@ -8,9 +8,13 @@ export interface WalletsProps {}
 
 export const Wallet: FC = (props: WalletsProps) => {
   const { walletId } = useParams<{ walletId: string }>();
-  cryptoStrategy[CoinType.BTC].walletInfo('');
-
-  console.log('this is the walletid', walletId);
+  const [walletData, setWalletInfo] = useState();
+  useEffect(() => {
+    const data = cryptoStrategy[CoinType.BTC].walletInfo([]).then((d) => {
+      setWalletInfo(d);
+    });
+  }, []);
+  console.log(walletData);
   return (
     <div>
       <h1>Welcome to wallet!</h1>

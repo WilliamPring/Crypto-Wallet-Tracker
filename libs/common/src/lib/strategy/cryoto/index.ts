@@ -1,7 +1,7 @@
 import {BtcClient} from '../../helper/CrpytoHttpClient'
 import { CoinType }from '../../type/coinType'
-
-
+import { flatten, map }from 'lodash'
+import { BitcoinResponse } from '@crypto-wallet-tracker/models'
 // interface walletData {
 //     address: string;
 //     walletType:
@@ -12,29 +12,23 @@ import { CoinType }from '../../type/coinType'
 
 
 interface CryptoStrategy {
-    walletInfo(cryptoPublicAddress: string): Promise<unknown>;
+    walletInfo(cryptoPublicAddresses: string[]): Promise<BitcoinResponse[]>;
 }
 
 class BitcoinStrategy implements CryptoStrategy {
-    clinet: BtcClient;
+    client: BtcClient;
     constructor() {
-        this.clinet = new BtcClient()
+        this.client = new BtcClient()
     }
 
-    public walletInfo(data: string): Promise<unknown> {
-        console.log(data);
+    public walletInfo(cryptoPublicAddresses: string[]): Promise<BitcoinResponse[]> {
+        //kinda bad use global exception handeler you can catch then throw a custom error...
         try {
-            return Promise.all([
-                this.clinet.getAddress(data),
-                this.clinet.getTransaction(data)
-            ]).then(data => {
-                const [generalInfo, transaction] = data;
-                console.log(data);
-
-                return {
-                    generalInfo,
-                    transaction
-                }
+            return Promise.all(map(cryptoPublicAddresses, cryptoPublicAddress => Promise.all([
+                this.client.getAddress(cryptoPublicAddress)
+                // this.client.getTransaction(data)
+            ]))).then(d => {
+               return flatten(d)
             })
         } catch (e) {
             console.log(e)
