@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 /* eslint-disable-next-line */
 import { CoinsProps } from '@crypto-wallet-tracker/props';
 import { Link } from 'react-router-dom';
-import { cryptoStrategy, CoinType } from '@crypto-wallet-tracker/common';
 
 export const Coin: FC<CoinsProps> = ({
   imageUrl,

@@ -1,8 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import './overview.module.scss';
 import { Coin } from '../../../component/coins/coins';
+import { getOverview } from '@crypto-wallet-tracker/context';
 import { CoinsProps } from '@crypto-wallet-tracker/props';
+import { map } from 'lodash';
 /* eslint-disable-next-line */
 export interface OverviewProps {}
 const data = [
@@ -20,6 +22,12 @@ const data = [
   },
 ] as Array<CoinsProps>;
 export const Overview: FC<OverviewProps> = (props: OverviewProps) => {
+  const { state, dispatch, userOverviewWallet } = getOverview();
+  useEffect(() => {
+    userOverviewWallet();
+    console.log(state);
+  }, []);
+  console.log(state);
   return (
     <div>
       <Table bordered hover>
@@ -32,6 +40,7 @@ export const Overview: FC<OverviewProps> = (props: OverviewProps) => {
           </tr>
         </thead>
         <tbody>
+          {state.serachFetched ? '' : 'LOADING'}
           {data.map((coin) => (
             <Coin key={coin.ticketName} {...coin} />
           ))}

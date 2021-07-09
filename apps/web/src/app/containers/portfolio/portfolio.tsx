@@ -2,7 +2,7 @@ import './portfolio.module.scss';
 
 import { lazy, FC, Suspense } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-
+import { OverviewProvider } from '@crypto-wallet-tracker/context';
 const Overview = lazy(() => import('./overview/overview'));
 const Wallet = lazy(() => import('./wallet/wallet'));
 
@@ -18,7 +18,9 @@ export const Portfolio: FC<PortfolioProps> = ({ baseName = '' }) => {
         <Suspense fallback={<div>Loading....</div>}>
           <Switch>
             <Route path="/wallet/:walletId" component={Wallet} />
-            <Route path="" component={Overview} />
+            <OverviewProvider>
+              <Route path="" component={Overview} />
+            </OverviewProvider>
           </Switch>
         </Suspense>
       </HashRouter>

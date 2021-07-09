@@ -8,13 +8,13 @@ export interface WalletsProps {}
 
 export const Wallet: FC = (props: WalletsProps) => {
   const { walletId } = useParams<{ walletId: string }>();
-  const [walletData, setWalletInfo] = useState();
-  useEffect(() => {
-    const data = cryptoStrategy[CoinType.BTC].walletInfo([]).then((d) => {
-      setWalletInfo(d);
-    });
-  }, []);
-  console.log(walletData);
+  // const [walletData, setWalletInfo] = useState();
+  // useEffect(() => {
+  //   const data = cryptoStrategy[CoinType.BTC].walletInfo([]).then((d) => {
+  //     setWalletInfo(d);
+  //   });
+  // }, []);
+  // console.log(walletData);
   return (
     <div>
       <h1>Welcome to wallet!</h1>
