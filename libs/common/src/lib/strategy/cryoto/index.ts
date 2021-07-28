@@ -32,6 +32,7 @@ class BitcoinStrategy implements CryptoStrategy {
             })
         } catch (e) {
             console.log(e)
+            throw e;
         }
     }
 }

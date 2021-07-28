@@ -1,35 +1,21 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
+import Container from 'react-bootstrap/Container';
 import './overview.module.scss';
-import { Coin } from '../../../component/coins/coins';
 import { getOverview } from '@crypto-wallet-tracker/context';
 import { CoinsProps } from '@crypto-wallet-tracker/props';
-import { map } from 'lodash';
+import { Coins } from '../coins/coins';
 /* eslint-disable-next-line */
 export interface OverviewProps {}
-const data = [
-  {
-    name: 'bitcoin',
-    ticketName: 'btc',
-    url: 'https://coinmarketcap.com/currencies/bitcoin/',
-    imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/BTC_Logo.svg/1200px-BTC_Logo.svg.png',
-    userCoinWalletSummary: {
-      addressCount: 2,
-      totalAmount: 3.6,
-      id: 1,
-    },
-  },
-] as Array<CoinsProps>;
 export const Overview: FC<OverviewProps> = (props: OverviewProps) => {
-  const { state, dispatch, userOverviewWallet } = getOverview();
+  const [searchQuery, setSearchQuery] = useState('');
+  const { state, userOverviewWallet } = getOverview();
   useEffect(() => {
     userOverviewWallet();
-    console.log(state);
   }, []);
-  console.log(state);
+  console.log(state?.data);
   return (
-    <div>
+    <div className="container-fluid">
       <Table bordered hover>
         <thead>
           <tr>
@@ -40,10 +26,11 @@ export const Overview: FC<OverviewProps> = (props: OverviewProps) => {
           </tr>
         </thead>
         <tbody>
-          {state.serachFetched ? '' : 'LOADING'}
-          {data.map((coin) => (
-            <Coin key={coin.ticketName} {...coin} />
-          ))}
+          <Coins coins={state.data} />
+          {state.serachFetched ? '' : 'LOADING.....'}
+          {state.serachFetched && state.data.length === 0 && (
+            <div>'No Data.....'</div>
+          )}
         </tbody>
       </Table>
     </div>

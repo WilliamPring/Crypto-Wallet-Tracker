@@ -4,8 +4,7 @@ export const WALLET_INFO = 'WALLET_INFO'
 export const WALLET_INFO_SUCCESS = 'WALLET_INFO_SUCCESS'
 
 
-
-export type OverviewData =  {
+type OverviewData =  {
   name: string;
   ticketName: string;
   url: string;
@@ -19,7 +18,7 @@ export type OverviewData =  {
 
 
 export interface OverviewInfo {
-    data?: OverviewData;
+    data?: Array<OverviewData>;
     serachFetched?: boolean;
     serachError?: unknown;
     selectedWalletId?: number;
